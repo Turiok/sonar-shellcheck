@@ -15,7 +15,7 @@
  */
 package com.github.sbaudoin.sonar.plugins.shellcheck.lexer;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Shared code for the Heredoc handling.

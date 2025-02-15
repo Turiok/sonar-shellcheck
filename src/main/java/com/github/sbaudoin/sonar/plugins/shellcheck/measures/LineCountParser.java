@@ -18,7 +18,7 @@ package com.github.sbaudoin.sonar.plugins.shellcheck.measures;
 import com.github.sbaudoin.sonar.plugins.shellcheck.highlighting.ShellLocation;
 import com.github.sbaudoin.sonar.plugins.shellcheck.lexer.BashLexer;
 import com.github.sbaudoin.sonar.plugins.shellcheck.lexer.TokenType;
-import org.apache.commons.lang.StringUtils;
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -27,6 +27,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Counting lines, comment lines and blank lines in Shell scripts

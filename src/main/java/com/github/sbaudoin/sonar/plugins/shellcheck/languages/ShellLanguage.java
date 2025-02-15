@@ -16,7 +16,8 @@
 package com.github.sbaudoin.sonar.plugins.shellcheck.languages;
 
 import com.github.sbaudoin.sonar.plugins.shellcheck.settings.ShellCheckSettings;
-import org.apache.commons.lang.StringUtils;
+
+import org.apache.commons.lang3.StringUtils;
 import org.sonar.api.config.Configuration;
 import org.sonar.api.resources.AbstractLanguage;
 
