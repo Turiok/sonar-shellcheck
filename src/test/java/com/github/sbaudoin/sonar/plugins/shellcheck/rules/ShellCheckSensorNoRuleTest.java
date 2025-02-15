@@ -20,13 +20,13 @@ import com.github.sbaudoin.sonar.plugins.shellcheck.settings.ShellCheckSettings;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+import org.slf4j.event.Level;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.fs.internal.DefaultFileSystem;
 import org.sonar.api.batch.sensor.internal.SensorContextTester;
 import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
-import org.sonar.api.utils.log.LogTester;
-import org.sonar.api.utils.log.LoggerLevel;
+import org.sonar.api.testfixtures.log.LogTester;
 
 import java.io.IOException;
 
@@ -65,10 +65,10 @@ public class ShellCheckSensorNoRuleTest {
         ShellCheckSensor sensor = new ShellCheckSensor(fs, fileLinesContextFactory);
 
         sensor.execute(context);
-        assertEquals(3, logTester.logs(LoggerLevel.INFO).size());
-        assertTrue(logTester.logs(LoggerLevel.INFO).get(0).startsWith("No active rules found for this plugin, skipping analysis of test"));
-        assertTrue(logTester.logs(LoggerLevel.INFO).get(1).startsWith("No active rules found for this plugin, skipping analysis of test"));
-        assertTrue(logTester.logs(LoggerLevel.INFO).get(2).startsWith("No active rules found for this plugin, skipping analysis of test"));
+        assertEquals(3, logTester.logs(Level.INFO).size());
+        assertTrue(logTester.logs(Level.INFO).get(0).startsWith("No active rules found for this plugin, skipping analysis of test"));
+        assertTrue(logTester.logs(Level.INFO).get(1).startsWith("No active rules found for this plugin, skipping analysis of test"));
+        assertTrue(logTester.logs(Level.INFO).get(2).startsWith("No active rules found for this plugin, skipping analysis of test"));
         assertEquals(0, context.allIssues().size());
     }
 }

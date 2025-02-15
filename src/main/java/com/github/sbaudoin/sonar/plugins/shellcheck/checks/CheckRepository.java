@@ -16,9 +16,10 @@
 package com.github.sbaudoin.sonar.plugins.shellcheck.checks;
 
 import com.github.sbaudoin.sonar.plugins.shellcheck.util.FileSystem;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sonar.api.rule.RuleKey;
-import org.sonar.api.utils.log.Logger;
-import org.sonar.api.utils.log.Loggers;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -33,7 +34,7 @@ public class CheckRepository {
     public static final String REPOSITORY_NAME = "ShellCheck";
     public static final String RULES_DEFINITION_FOLDER = "org/sonar/l10n/shellcheck/rules/shellcheck";
 
-    private static final Logger LOGGER = Loggers.get(CheckRepository.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CheckRepository.class);
     private static final List<String> RULE_KEYS = new ArrayList<>();
 
     static {

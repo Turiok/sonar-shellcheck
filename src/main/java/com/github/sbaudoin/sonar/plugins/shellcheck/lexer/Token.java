@@ -20,7 +20,7 @@ import java.io.Serializable;
 /**
  * This class represents the tokens identified by Shell lexers
  */
-public class Token implements Serializable, Comparable {
+public class Token implements Serializable, Comparable<Token> {
     /**
      * The token type
      */
@@ -88,7 +88,7 @@ public class Token implements Serializable, Comparable {
     }
 
     @Override
-    public int compareTo(Object o) {
+    public int compareTo(Token o) {
         Token t = (Token) o;
         if (this.start != t.start) {
             return (this.start - t.start);

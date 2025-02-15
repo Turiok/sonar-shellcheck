@@ -129,7 +129,7 @@ public class ShellCheckPluginTest {
         PluginContextImpl.Builder contextBuilder = new PluginContextImpl.Builder();
         contextBuilder.setSonarRuntime(runtime);
         if (settings != null) {
-                contextBuilder.setBootConfiguration(settings.asConfig());
+            contextBuilder.setBootConfiguration(settings.asConfig());
         }
         return contextBuilder.build();
     }

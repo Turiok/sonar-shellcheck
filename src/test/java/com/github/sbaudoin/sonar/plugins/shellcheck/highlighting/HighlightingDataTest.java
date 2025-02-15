@@ -52,11 +52,6 @@ public class HighlightingDataTest extends TestCase {
         }
 
         @Override
-        public NewHighlighting highlight(int startOffset, int endOffset, TypeOfText typeOfText) {
-            return null;
-        }
-
-        @Override
         public NewHighlighting highlight(TextRange range, TypeOfText typeOfText) {
             return null;
         }

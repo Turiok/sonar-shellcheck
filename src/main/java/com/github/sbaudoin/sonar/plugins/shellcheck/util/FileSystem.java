@@ -15,23 +15,29 @@
  */
 package com.github.sbaudoin.sonar.plugins.shellcheck.util;
 
-import org.sonar.api.utils.log.Logger;
-import org.sonar.api.utils.log.Loggers;
 
 import java.io.Closeable;
 import java.io.IOException;
 import java.net.URI;
-import java.nio.file.*;
+import java.nio.file.DirectoryStream;
+import java.nio.file.FileSystemAlreadyExistsException;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.NotDirectoryException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * A class used to make the default {@code FileSystem} be closable like the other file systems without raising an exception
  */
 public final class FileSystem implements Closeable {
-    private static final Logger LOGGER = Loggers.get(FileSystem.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileSystem.class);
 
     private boolean defaultFileSystem = false;
     private java.nio.file.FileSystem fs;

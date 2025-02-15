@@ -28,9 +28,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.MockedConstruction;
 import org.mockito.Mockito;
+import org.slf4j.event.Level;
 import org.sonar.api.batch.sensor.highlighting.TypeOfText;
-import org.sonar.api.utils.log.LogTester;
-import org.sonar.api.utils.log.LoggerLevel;
+import org.sonar.api.testfixtures.log.LogTester;
 
 import com.github.sbaudoin.sonar.plugins.shellcheck.Utils;
 import com.github.sbaudoin.sonar.plugins.shellcheck.lexer.BashLexer;
@@ -59,8 +59,8 @@ public class ShellHighlightingTest {
                 })) {
             logTester.clear();
             new ShellHighlighting("foo");
-            assertTrue(logTester.logs(LoggerLevel.WARN).size() > 0);
-            assertEquals("Could not scan Shell script and highlight code", logTester.logs(LoggerLevel.WARN).get(0));
+            assertTrue(logTester.logs(Level.WARN).size() > 0);
+            assertEquals("Could not scan Shell script and highlight code", logTester.logs(Level.WARN).get(0));
 
         }
     }

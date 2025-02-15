@@ -15,15 +15,15 @@
  */
 package com.github.sbaudoin.sonar.plugins.shellcheck;
 
+import java.util.Optional;
+
+import org.sonar.api.Plugin;
+
 import com.github.sbaudoin.sonar.plugins.shellcheck.languages.ShellLanguage;
 import com.github.sbaudoin.sonar.plugins.shellcheck.languages.ShellQualityProfile;
 import com.github.sbaudoin.sonar.plugins.shellcheck.rules.ShellCheckRulesDefinition;
 import com.github.sbaudoin.sonar.plugins.shellcheck.rules.ShellCheckSensor;
 import com.github.sbaudoin.sonar.plugins.shellcheck.settings.ShellCheckSettings;
-import org.sonar.api.Plugin;
-
-import java.security.AccessControlException;
-import java.util.Optional;
 
 public class ShellCheckPlugin implements Plugin {
     public static final String ADD_SHELL_LANGUAGE_ENV_VAR = "SHELLCHECK_LANGUAGE_ADD";

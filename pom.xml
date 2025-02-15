@@ -17,7 +17,9 @@
         <release.repo.url>https://oss.sonatype.org/service/local/staging/deploy/maven2</release.repo.url>
         <snapshot.repo.url>https://oss.sonatype.org/content/repositories/snapshots</snapshot.repo.url>
 
-        <sonar.apiVersion>7.1</sonar.apiVersion>
+        <sonar.plugin.api.version>11.0.0.2664</sonar.plugin.api.version>
+        <sonar.version>25.2.0.102705</sonar.version>
+
         <sonar.exclusions>**/lexer/BashLexerBase.java</sonar.exclusions>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -56,15 +58,15 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.sonarsource.sonarqube</groupId>
+            <groupId>org.sonarsource.api.plugin</groupId>
             <artifactId>sonar-plugin-api</artifactId>
-            <version>${sonar.apiVersion}</version>
+            <version>${sonar.plugin.api.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.sonarsource.analyzer-commons</groupId>
             <artifactId>sonar-analyzer-commons</artifactId>
-            <version>1.6.0.219</version>
+            <version>2.16.0.3141</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -74,13 +76,7 @@
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20180813</version>
-        </dependency>
-        <dependency>
-            <groupId>org.sonarsource.sonarqube</groupId>
-            <artifactId>sonar-testing-harness</artifactId>
-            <version>${sonar.apiVersion}</version>
-            <scope>test</scope>
+            <version>20250107</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -106,6 +102,24 @@
             <version>2.1.7</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.sonarsource.sonarqube</groupId>
+            <artifactId>sonar-testing-harness</artifactId>
+            <version>${sonar.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.sonarsource.sonarqube</groupId>
+            <artifactId>sonar-plugin-api-impl</artifactId>
+            <version>${sonar.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+        <groupId>org.sonarsource.api.plugin</groupId>
+        <artifactId>sonar-plugin-api-test-fixtures</artifactId>
+        <version>${sonar.plugin.api.version}</version>
+        <scope>test</scope>
+      </dependency>
     </dependencies>
 
     <distributionManagement>
