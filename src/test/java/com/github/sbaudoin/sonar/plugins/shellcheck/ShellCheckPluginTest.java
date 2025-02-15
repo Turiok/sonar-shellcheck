@@ -20,15 +20,16 @@ import static org.mockito.Mockito.mock;
 
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.contrib.java.lang.system.EnvironmentVariables;
 import org.sonar.api.Plugin;
 import org.sonar.api.SonarRuntime;
 import org.sonar.api.config.internal.MapSettings;
 import org.sonar.api.internal.PluginContextImpl;
 
+import uk.org.webcompere.systemstubs.rules.EnvironmentVariablesRule;
+
 public class ShellCheckPluginTest {
     @Rule
-    public final EnvironmentVariables environmentVariables = new EnvironmentVariables();
+    public final EnvironmentVariablesRule environmentVariables = new EnvironmentVariablesRule();
 
 
     @Test
