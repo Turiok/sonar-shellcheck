@@ -49,9 +49,11 @@ import java.util.function.Predicate;
 import static com.github.sbaudoin.sonar.plugins.shellcheck.Utils.issueExists;
 import static com.github.sbaudoin.sonar.plugins.shellcheck.Utils.setShellRights;
 import static org.junit.Assert.*;
-import static org.mockito.Matchers.any;
-import static org.powermock.api.mockito.PowerMockito.*;
-import static org.powermock.api.mockito.PowerMockito.doThrow;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
 public class ShellCheckSensorTest {
     private static final String RULE_ID1 = "SC2037";

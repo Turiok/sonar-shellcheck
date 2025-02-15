@@ -19,6 +19,7 @@ import com.github.sbaudoin.sonar.plugins.shellcheck.Utils;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.internal.SensorContextTester;
 import org.sonar.api.internal.SonarRuntimeImpl;
@@ -35,10 +36,9 @@ import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.any;
-import static org.powermock.api.mockito.PowerMockito.mock;
-import static org.powermock.api.mockito.PowerMockito.spy;
-import static org.powermock.api.mockito.PowerMockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class LineCounterTest {
     private FileLinesContextFactory fileLinesContextFactory;
@@ -67,7 +67,7 @@ public class LineCounterTest {
     public void testIOException() throws IOException {
         SensorContextTester context = Utils.getSensorContext();
         InputFile inputFile = Utils.getInputFile("test1.sh");
-        InputFile spy = spy(inputFile);
+        InputFile spy = Mockito.spy(inputFile);
         when(spy.contents()).thenThrow(new IOException("Cannot read file"));
 
         LineCounter.analyse(context, fileLinesContextFactory, spy);

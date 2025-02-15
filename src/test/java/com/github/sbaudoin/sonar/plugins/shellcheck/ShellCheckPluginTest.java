@@ -15,30 +15,17 @@
  */
 package com.github.sbaudoin.sonar.plugins.shellcheck;
 
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.contrib.java.lang.system.EnvironmentVariables;
-import org.junit.runner.RunWith;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 import org.sonar.api.Plugin;
-import org.sonar.api.SonarQubeSide;
 import org.sonar.api.SonarRuntime;
 import org.sonar.api.config.internal.MapSettings;
 import org.sonar.api.internal.PluginContextImpl;
-import org.sonar.api.internal.SonarRuntimeImpl;
-import org.sonar.api.utils.Version;
 
-import java.security.AccessControlException;
-
-import static org.junit.Assert.assertEquals;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
-import static org.powermock.api.mockito.PowerMockito.when;
-
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({ShellCheckPlugin.class})
-@PowerMockIgnore("jdk.internal.reflect.*")
 public class ShellCheckPluginTest {
     @Rule
     public final EnvironmentVariables environmentVariables = new EnvironmentVariables();
@@ -99,32 +86,6 @@ public class ShellCheckPluginTest {
         assertEquals(6, context.getExtensions().size());
     }
 
-     // Special test for SQ 8.0
-     // @see https://community.sonarsource.com/t/cannot-access-environment-variables-from-a-plugin-in-sonarqube-8/15743/6
-    @Test
-    public void testExtensionCounts8() {
-        mockStatic(System.class);
-        when(System.getenv()).thenThrow(new AccessControlException("Forbidden access"));
-
-        MapSettings settings = new MapSettings().setProperty(ShellCheckPlugin.ADD_SHELL_LANGUAGE_CONF_PROP, "false");
-        Plugin.Context context = getContext(settings);
-        new ShellCheckPlugin().define(context);
-        assertEquals(6, context.getExtensions().size());
-    }
-
-    // Special test for SQ 8.0
-    // @see https://community.sonarsource.com/t/cannot-access-environment-variables-from-a-plugin-in-sonarqube-8/15743/6
-    @Test
-    public void testExtensionCounts9() {
-        mockStatic(System.class);
-        when(System.getenv()).thenThrow(new AccessControlException("Forbidden access"));
-
-        MapSettings settings = new MapSettings().setProperty(ShellCheckPlugin.ADD_SHELL_LANGUAGE_CONF_PROP, "true");
-        Plugin.Context context = getContext(settings);
-        new ShellCheckPlugin().define(context);
-        assertEquals(7, context.getExtensions().size());
-    }
-
     @Test
     public void testExtensionCounts10() {
         environmentVariables.set(ShellCheckPlugin.ADD_SHELL_LANGUAGE_ENV_VAR, "True");
@@ -163,7 +124,7 @@ public class ShellCheckPluginTest {
 
 
     private Plugin.Context getContext(MapSettings settings) {
-        SonarRuntime runtime = SonarRuntimeImpl.forSonarQube(Version.create(7, 1), SonarQubeSide.SERVER);
+        SonarRuntime runtime = mock(SonarRuntime.class);
         PluginContextImpl.Builder contextBuilder = new PluginContextImpl.Builder();
         contextBuilder.setSonarRuntime(runtime);
         if (settings != null) {

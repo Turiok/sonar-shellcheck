@@ -33,16 +33,9 @@ public class ShellCheckPlugin implements Plugin {
     @Override
     public void define(Context context) {
         Optional<Boolean> addLanguage = Optional.empty();
-        try {
-            if (System.getenv().get(ADD_SHELL_LANGUAGE_ENV_VAR) != null) {
-                addLanguage = Optional.of(Boolean.parseBoolean(System.getenv().get(ADD_SHELL_LANGUAGE_ENV_VAR)));
-            }
-        } catch (AccessControlException exc) {
-            // Do nothing on purpose: in SQ 8.0, we do not have access to system env variables
-            // and we deal with that with a new SQ configuration property read below
-        }
-        // If no env variable found, read from SQ conf
-        if (!addLanguage.isPresent()) {
+        if (System.getenv().get(ADD_SHELL_LANGUAGE_ENV_VAR) != null) {
+            addLanguage = Optional.of(Boolean.parseBoolean(System.getenv().get(ADD_SHELL_LANGUAGE_ENV_VAR)));
+        } else {
             addLanguage = context.getBootConfiguration().getBoolean(ADD_SHELL_LANGUAGE_CONF_PROP);
         }
         // Install language unless instructed otherwise
