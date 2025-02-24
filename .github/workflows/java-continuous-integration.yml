@@ -1,0 +1,58 @@
+# Description
+# ===========
+# This workflow is triggered each time
+# commits are pushed to GitHub or a pull request is opened.
+# It launches three jobs in parallel : a build with java 8,
+# a build with java 11 and a SonarCloud analysis.
+---
+name: Java CI
+
+on: [push, pull_request]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java: [ '17', '21' ]
+    name: Java ${{ matrix.Java }} CI
+    steps:
+      # the latest version at https://github.com/marketplace/actions/checkout
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      # the latest version at https://github.com/marketplace/actions/setup-java-jdk
+      - name: Setup java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'adopt'
+          java-version: ${{ matrix.java }}
+          cache: 'maven'
+      - name: Build with Maven
+        run: mvn -B clean package -Paudit
+  quality:
+    runs-on: ubuntu-latest
+    name: quality
+    steps:
+      # the latest version at https://github.com/marketplace/actions/checkout
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      # the latest version at https://github.com/marketplace/actions/official-sonarqube-scan
+      # Triggering SonarQube analysis as results of it are required by Quality Gate check.
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v4.2.1
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      # the latest version at https://github.com/marketplace/actions/sonarqube-quality-gate-check
+      # Check the Quality Gate status.
+      - name: SonarQube Quality Gate check
+        id: sonarqube-quality-gate-check
+        uses: sonarsource/sonarqube-quality-gate-action@v1.1.0
+        with:
+          pollingTimeoutSec: 600
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
